@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redactr</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="main">
+            <h1 class="form-heading">Redactr! Redactr!! Redactr!!!</h1>
+            <form action="" style="padding-top: 0px;" class="form">
+                <div class="form_group">
+                    <label for="text" class="form_group-label">Type or paste the text here</label>
+                    <textarea 
+                        name="text" id="text" 
+                        cols="30" rows="7" 
+                        placeholder="Your text here ..." required
+                    ></textarea>
+                    
+                </div>
+                <div class="form_group">
+                    <label for="words-to-scamble" class="form_group-label">Word(s) to Redact</label>
+                    <input 
+                        type="text" name="words-to-scamble" 
+                        id="words-to-scamble" class="words-to-scamble" 
+                        placeholder="Word(s) to scramble" required
+                    />
+                </div>
+                <div class="form_group">
+                    <label for="scramble-replacement" class="form_group-label">Select a Replacement Character</label>
+                    <select name="scramble-replacement" id="scramble-replacement" class="scramble-replacement" required>
+                        <option value="*">*</option>
+                        <option value="&">&</option>
+                        <option value="?">?</option>
+                        <option value="#">#</option>
+                        <option value="_">_</option>
+                        <option value="@">@</option>
+                    </select>
+                </div>
+                <div class="form_group">
+                    <button type="submit" class="btn-submit" id="btn-submit">Redactr</button>
+                </div>
+
+                <div class="refresh">
+                    <button id="refresh-btn"> Refresh</button>
+                </div>
+                
+            </form>
+            <div class="results">
+                <h6>Total Words Scanned: <span id="total-word"></span> </h6>
+                <h6>Total Word Matched: <span id="total-word-match"></span></h6>
+                <h6>Total Character redacted: <span id="total-redacted-character"></span></h6>
+                <h6>Time Taken: <span id="time-taken"></span></h6>
+                <h6>Redacted text:</h6>
+
+                <div class="scrollable-content">
+                    <textarea id="redacted-text"></textarea>
+                    <!-- <span id="redacted-text"></span> -->
+                </div>
+            
+            </div>
+        </div>
+    </main>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
