@@ -47,39 +47,42 @@ redactrBtn.addEventListener("click", (e)=>{
     timeTaken.textContent = "";
 });
 
-function redactr(text, wordsToRedactr, redactWith) {
-    const wordToRedactrArr = wordsToRedactr.split(" ").map(word => word.toLowerCase());
-    let totalWordsScanned = 0
-    let totalWordRedacted = 0
-    let totalCharacterRedacted = 0
-    
-    // helper function to redact words
+function redactText(text, wordsToRedact, redactWith) {
+    const wordToRedactArr = wordsToRedact.split(" ").map(word => word.toLowerCase());
+    let totalWordsScanned = 0;
+    let totalWordsRedacted = 0;
+    let totalCharactersRedacted = 0;
+
+    // Helper function to redact words
     function redactWord(word) {
-        totalWordRedacted ++
-        totalCharacterRedacted += word.length
-        let newWord = "";
-        for (let i = 0; i < word.length; i++) {
-            newWord += redactWith;
-        }
+        totalWordsRedacted++;
+        totalCharactersRedacted += word.length;
+        let newWord = redactWith.repeat(word.length);
         return newWord;
     }
 
-    const textWordsArr = text.split(/\s+/);
+    // Split text into words while preserving non-alphabetical characters
+    const wordSplitRegex = /(\W+)/;
+    const textWordsArr = text.split(wordSplitRegex);
 
     const redactedText = textWordsArr.map(word => {
-        totalWordsScanned ++
-        word = word.replace(/[^a-zA-Z]+/g, "");
-        if (wordToRedactrArr.indexOf(word.toLowerCase()) > -1) {
-            return redactWord(word);
+        totalWordsScanned++;
+        if (/\w+/.test(word)) {
+            // If the word contains at least one alphabet character
+            const cleanWord = word.replace(/\W/g, "");
+            if (wordToRedactArr.includes(cleanWord.toLowerCase())) {
+                return redactWord(cleanWord);
+            }
         }
         return word;
-    }).join(" ");
+    }).join('');
 
     const resultObj = {
-        "redactedText":redactedText,
-        "totalWordsScanned":totalWordsScanned,
-        "totalWordRedacted":totalWordRedacted,
-        "totalCharacterRedacted":totalCharacterRedacted
-    }
-    return resultObj
+        "redactedText": redactedText,
+        "totalWordsScanned": totalWordsScanned,
+        "totalWordsRedacted": totalWordsRedacted,
+        "totalCharactersRedacted": totalCharactersRedacted
+    };
+
+    return resultObj;
 }
